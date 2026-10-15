@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Get Fit</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#0d7a5f">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="GF">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" href="icon-192.png">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&family=Barlow+Condensed:ital,wght@1,800&display=swap">
+<style>
+:root{--bg:#eef2f1;--card:#fff;--tx:#14232b;--mu:#62737a;--ac:#0d7a5f;--ln:#dde5e3;--wn:#c9621a;--tr:#e3eae8;--gl:rgba(13,122,95,.22);--st:rgba(13,122,95,.07);color-scheme:light;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--gl:rgba(60,207,159,.18);--st:rgba(60,207,159,.06);--bg:#0f1a1e;--card:#172529;--tx:#e6efed;--mu:#8fa4a9;--ac:#3ccf9f;--ln:#25383d;--wn:#f0954f;--tr:#22353a;color-scheme:dark}}
+:root[data-theme="dark"]{--gl:rgba(60,207,159,.18);--st:rgba(60,207,159,.06);--bg:#0f1a1e;--card:#172529;--tx:#e6efed;--mu:#8fa4a9;--ac:#3ccf9f;--ln:#25383d;--wn:#f0954f;--tr:#22353a;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(ellipse 110% 300px at 50% 0,var(--gl),transparent),repeating-linear-gradient(-60deg,transparent 0 26px,var(--st) 26px 29px),var(--bg);color:var(--tx);font-family:'Cairo',system-ui,Tahoma,sans-serif;line-height:1.5}
+main{max-width:560px;margin:0 auto;padding:16px 14px 40px}
+h1{font:italic 800 34px/1 'Barlow Condensed','Cairo',system-ui,sans-serif;letter-spacing:.5px;margin:6px 0 6px}h1::after{content:'';display:block;width:70px;height:5px;background:var(--ac);transform:skewX(-30deg);margin-top:6px}.mt{margin:0 0 12px;font-weight:600;color:var(--ac)}
+#tabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:6px}
+.tab{flex:0 0 auto;min-width:62px;border:1px solid var(--ln);background:var(--card);color:var(--tx);border-radius:12px;padding:6px 8px;font:600 14px 'Cairo',system-ui,sans-serif;cursor:pointer;display:flex;flex-direction:column;align-items:center}
+.tab small{color:var(--mu);font-weight:400;font-size:11px}
+.tab.td{border-color:var(--ac)}
+.tab.on{background:var(--ac);border-color:var(--ac);color:#fff}
+.tab.on small{color:#e6fff6}
+.card{background:var(--card);border:1px solid var(--ln);border-radius:16px;padding:14px;margin-top:12px}
+.top{display:flex;align-items:center;gap:16px}
+.ring{--p:0;width:112px;height:112px;border-radius:50%;background:conic-gradient(var(--c,var(--ac)) calc(var(--p)*1%),var(--tr) 0);display:grid;place-items:center;flex:none}
+.ring div{width:84px;height:84px;border-radius:50%;background:var(--card);display:grid;place-items:center;text-align:center;line-height:1.1}
+.ring b{font-size:24px;font-weight:800}
+.ring small{color:var(--mu);font-size:11px}
+.stats{flex:1;display:grid;grid-template-columns:repeat(3,1fr);gap:6px;text-align:center}
+.stats b{display:block;font-size:17px}
+.stats span{font-size:12px;color:var(--mu)}
+.rem{margin-top:10px;font-size:14px;color:var(--mu)}
+.rem b{color:var(--tx)}
+.meal{display:block}
+.meal.done{border-color:var(--ac)}
+.mh{display:flex;align-items:center;gap:10px}
+.mh b{flex:1;font-size:16px}
+.mh span{color:var(--mu);font-size:14px}
+.chk{width:34px;height:34px;border-radius:50%;border:2px solid var(--ln);background:transparent;color:#fff;font-size:18px;cursor:pointer;padding:0}
+.done .chk{background:var(--ac);border-color:var(--ac)}
+ul{list-style:none;margin:8px 0 0;padding:0}
+li{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;padding:5px 0;border-top:1px solid var(--ln);font-size:15px}
+li span{color:var(--mu);white-space:nowrap}
+.done li{color:var(--mu)}
+.alt{flex-basis:100%;font-size:13px}.alt summary{color:var(--ac);cursor:pointer;width:max-content}.alt div{display:flex;justify-content:space-between;gap:8px;color:var(--mu);padding:2px 0}.alt div span{color:var(--tx)}
+h2{font-size:16px;margin:0 0 6px}
+.f{display:flex;gap:6px;margin-top:8px}
+input{min-width:0;border:1px solid var(--ln);background:var(--bg);color:var(--tx);border-radius:10px;padding:8px 10px;font:400 15px 'Cairo',system-ui,sans-serif}
+#xn{flex:1}#xk{width:84px}
+.add{border:0;background:var(--ac);color:#fff;border-radius:10px;padding:8px 14px;font:600 15px 'Cairo',system-ui,sans-serif;cursor:pointer}
+.del{border:0;background:none;color:var(--wn);font-size:18px;cursor:pointer;padding:0 4px}
+.note{color:var(--mu);font-size:12px;margin-top:14px}
+.g{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+label{display:flex;flex-direction:column;gap:3px;font-size:13px;color:var(--mu)}
+label.w{margin-top:8px}
+select{border:1px solid var(--ln);background:var(--bg);color:var(--tx);border-radius:10px;padding:8px 10px;font:400 15px 'Cairo',system-ui,sans-serif}
+.kv{display:flex;justify-content:space-between;gap:8px;padding:6px 0;border-top:1px solid var(--ln);font-size:14px}
+.kv span{color:var(--mu)}
+.kv b{text-align:end}
+#calc{margin-top:10px}
+#wc svg{width:100%;height:auto;display:block}
+#wd{flex:1}#wv{width:84px}
+.tg{align-items:center;margin:0 0 10px}.tg label{flex:1;font-size:15px;color:var(--tx)}.tg input{width:110px}
+.st{width:30px;height:30px;border-radius:50%;border:1px solid var(--ln);background:var(--bg);color:var(--tx);font-size:18px;cursor:pointer;padding:0}
+#dl span{display:flex;align-items:center;gap:8px}#dl b{min-width:22px;text-align:center;color:var(--tx)}
+input:disabled,select:disabled{opacity:.6;cursor:not-allowed}
+button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
+body.lock main{display:none}body:not(.lock) #gate{display:none}#gate{max-width:420px;margin:0 auto;padding:22px 14px}.rid{font:800 34px/1.2 'Barlow Condensed',system-ui,sans-serif;letter-spacing:6px;text-align:center;margin:10px 0;color:var(--ac)}.er{color:var(--wn);font-size:13px;min-height:18px;margin:6px 0 0}#gate .add{width:100%;margin-top:10px;padding:10px}
+.hd{width:34px;height:34px;border-radius:50%;border:1px solid var(--ln);background:transparent;color:var(--ac);display:grid;place-items:center;cursor:pointer;padding:0;flex:none}.hd[aria-expanded="true"]{background:var(--ac);color:#fff;border-color:var(--ac)}.hp{margin-top:10px;padding:10px 12px;border-radius:12px;background:var(--bg);border-inline-start:4px solid var(--ac);font:400 15px/1.9 'Cairo',system-ui,sans-serif}.hp p{margin:0 0 6px}.hq{font-weight:800}.hs{font-size:12px;color:var(--mu)}.hs a{color:var(--ac)}
+#pf{width:170px}#pn{flex:1}.pm{margin:-2px 0 10px}.pm summary{cursor:pointer;color:var(--ac);font-size:14px;width:max-content}.dg{border:0;background:none;color:var(--wn);font:600 14px 'Cairo',system-ui,sans-serif;cursor:pointer;margin-top:10px;padding:0}
+</style>
+</head>
+<body class="lock">
+<div id="gate"><h1>Get Fit</h1><p class="mt">Enter your access code to get started.</p>
+<section class="card" id="g0"><label>Access code<input id="gk" inputmode="numeric" maxlength="5" autocomplete="off" placeholder="5 digits"></label><p class="er" id="e0"></p><button class="add" id="gk0">Continue</button></section>
+<section class="card" id="g1" hidden><h2>Your profile</h2><div class="g"><label>Name<input id="gn" maxlength="20" autocomplete="off"></label><label>Sex<select id="gs"><option value="m">Male</option><option value="f">Female</option></select></label><label>Birth year<input id="gb" type="number" inputmode="numeric" placeholder="e.g. 2007"></label><label>Height (cm)<input id="gh" type="number" inputmode="decimal"></label><label>Weight (kg)<input id="gw" type="number" inputmode="decimal"></label></div><p class="er" id="e1"></p><button class="add" id="gc">Start</button></section></div>
+<main>
+<h1>Get Fit</h1>
+<p class="mt" id="mt"></p>
+<details class="pm"><summary id="pnm"></summary><div class="f"><input id="pn" placeholder="New name" maxlength="20"><button class="add" id="pr">Save</button></div></details>
+<div class="f tg"><label for="tg">Daily calorie target</label><input id="tg" type="number" inputmode="numeric" min="1500" max="4000" step="50"></div>
+<div id="tabs"></div>
+<section class="card" id="sum"></section>
+<div id="meals"></div>
+<section class="card">
+<h2>Drinks (no sugar)</h2>
+<ul id="dl"></ul>
+<p class="note">Nescafé is counted with milk (about 70 kcal a cup). Coffee and teas are counted black. No sugar. Log anything extra below.</p>
+</section>
+<section class="card">
+<h2>Ate something off-plan?</h2>
+<ul id="xl"></ul>
+<div class="f"><input id="xn" placeholder="Food name"><input id="xk" type="number" inputmode="numeric" min="1" placeholder="kcal"><button class="add" id="xa">Add</button></div>
+</section>
+<section class="card">
+<h2>Your calorie needs</h2>
+<div class="g"><label>Sex<select id="sex"><option value="m">Male</option><option value="f">Female</option></select></label><label>Birth year<input id="by" type="number" inputmode="numeric"></label><label>Height (cm)<input id="ht" type="number" inputmode="decimal"></label><label>Weight (kg)<input id="wt" type="number" inputmode="decimal"></label></div>
+<label class="w">Activity level<select id="act"></select></label>
+<p class="note" id="lk" hidden>Sex, birth year and height are locked after sign-up. Your age updates by itself. You can still update your weight.</p>
+<div id="calc"></div>
+</section>
+<section class="card">
+<h2>Weekly weight progress</h2>
+<div id="wc"></div><p class="rem" id="ws"></p>
+<ul id="wl"></ul>
+<div class="f"><input id="wd" type="date"><input id="wv" type="number" inputmode="decimal" step="0.1" placeholder="kg"><button class="add" id="wa">Add</button></div>
+</section>
+<section class="card" id="cl"><h2>Add to calendar</h2><p class="rem">Pick your meal times, then add the next 7 days of meals to your calendar.</p><div class="g" id="ct"></div><button class="add" id="cb" style="width:100%;margin-top:10px;padding:10px">Add 7 days to calendar</button><p class="note" id="cm"></p></section>
+<p class="note">Numbers are estimates. Weigh rice, chicken and beef cooked, and tuna drained. Tick a meal when you finish it and it counts toward your total. Changing the daily target rescales the grams of rice, meat, cheese and oil; eggs and fruit stay fixed. Tap Swap under a protein to see alternatives with the same calories. Everything is saved on this phone and browser only.</p>
+</main>
+<script>
+(function(){
+const SALT='gf-ac-9Xk2',$=s=>document.querySelector(s);
+const K=["nakzhj1e6utdz","12ps7401dz3y2y","1krwue01e5hg9s","2l5lga1dz2lb6","11xebzr1e423pn","6moyjr1e59y2z","1yrtp0s1e38rk6","1vc9ntk1e6x0r2","1pwpj001e3bssq","93fzqn1e0oznz","19qtak51e16on5","11k4v9t1e1611d","dp942b1e1571l","1y657tc1e39grk","1p5uwdp1e0qiz1","3zr2e01e1twps","12il3ju1e1zbe2","s27js51e59w6f","17enau31e0f5r5","2fr8c21e16vew","135odoc1e1z92k","3e3ucj1e44bj5","1b53f6i1e3escs","12nwck81e5grbe","83rb5q1e6qydo","cyhrv1e1twv9","1w4uc1q1e43lhg","nrme4o1e2rnm6","1gikd551e59uit","weazap1dz6z8n","1t4557d1e6qbjj","qccwke1e5jozw","13sarn91e2romj","iyzcis1e6slsa","1dwr0zg1e1ttdu","aoqne61e3cbdu","m27z7w1e6rwlq","18zg3nl1e5fvjj","g7x4ql1e3x8ct","1d3ghn21e3d5m2","m0h0e1e19mo0","1dyixp51e2q3ep","1h61xyj1e23n1p","ajrj0k1e0pne4","z8zff11e15a2p","11lxzi1dzcf0s","ytgi7k1e1zaqw","6nuet11e4536v","1ye43p71dzcf3h","gg0n7i1e3v16o","qr7h991e12zu3","q02iwv1e2mhqb","1hv1psk1e6qwjy","930w021e5hlho","1rg2ose1e0momm","es69tu1e2qar2","1atr3931e2m735","1ht5oi91e3zhxp","m0iq5b1e1dir1","l9syy1e2nzm4","k926n41e4493e","1pxk73m1e167i8","1jteq3x1e20url","x7qv7b1e17erz","ftafjr1e6qdyl","1vze9ub1e21jez","rdwkdn1e2319h","htlm2k1e3e5ji","1lbezdq1e0oabw","1shk8d01e6ta04","12ihvie1e16v9o","ukka1f1e14hlt","1szvlvq1e5elvs","3yuzd1e2mjn3","kxbyb21e5c2g6","1zxakr1e3bva9","1dl6coa1e5hlfw","xx5sgx1e5fb3f","sfddmb1e0oc4p","1ldl1ic1e38p5a","qlf2031e130p3","1fiybn91e5eiod","jhlmvr1e20359","13jigpc1e20wne","k4c94q1dzccfe","1pp2xgj1dz383z","n6ipnz1e187e5","1ky8x0p1e5ibl7","4mjr5i1e0mr1m","rvcjrz1e1yi6n","4lx8hf1e0m0uj","xwgo4l1e0fsld","woko4g1e5jrka","u7au4p1e1uolp","a6a6fm1e0f6li","1huut201e5jqq6","bnh5na1e5d2au","1l4bpvg1e166ve","be7jz81e6urz4","12ws1mt1dzd7gp","11rfuqs1e6r0lq","2fk7m71e161up","ftqdhu1e38nd0","ru72us1e3zpes","7ayyta1e39lu0","1rhv02u1dz3gdm","13l8qb11e3dbid","185a11q1e0pn2c","d67bu91e4224p","17xhyiw1e19s7e","11js8mf1e43dvr","12wmsk81dz1wwe","auj93q1e0o9ii","az10bp1e0la19","z57lv31e0p17l","fun1i21e234g4","1qpxn3d1e6q345","hysrea1e16u9w","q6hlsh1e3v3nl","petmok1e5hfl0","swm2er1e3dadf","113ckah1dz752b","1uau19y1e0ovfm","1af4pln1dz43ah","seln4b1e0m1rh","dr79zs1e1z9xm","yb7xtd1e38qrl","19m6xle1e444w4","g107ir1e46ij3","jr8xvv1e39fyf","1mbjp7v1e0qeul","1h11vaf1e446kv","1cpd9pb1dz73hh","figcbm1e2qux0","gyof9d1e5hm7f","15dbvuo1e23ovc","1fsok7l1e39fd5","12osk8b1e20k8d","ve933r1e59wfd","fad1xd1e3flsz","172yxah1e2pyg7","1wrwz501dz1vuu","idiwex1e2ij7l","12x8sn41e1fzk2","tt7xor1e0m1ov","3oy1511e44bet","c2o2vh1e41ppj","kjg8ms1e23uec","g52vb41e3e5ou","tforxw1e2rl72","n9d6p21e1u2i6","17xotdk1e39lvu","lv7tt11dz46ej","mzx5h51e46but","1c04xjj1e159cf","6z4ec71e2r04l","1g2rta81e23myu","nkyscj1e5i38l","n8r2na1dzd4fe","5v1nvd1e0fykp","h55y1w1e5c4w6","v61np11e5jmkh","1ib1eu41e21gq0","12576d01e1619o","1b3s03j1e15xwt","1gx61m01e5caoa","oueq9u1e0mo90","ogrw31e1zauh","1tgluts1e15adi","1e1cn6r1e0f8hz","hqjzvj1e0fwth","1a5b9461e2olpq","12pin2s1e6uwz0","1gb5hqq1e2nwiy","297ide1e2qu4k","23l3z01e5g06c","zmxltf1e0ot61","17guc3p1e1umpx","16tzgsh1e6qd43","nqmddo1e5c3be","65fnls1e201pg","dz1wr11e3gco3","18wk92h1e2rpez","146d7wg1e1txi8","1f32jcv1e6qwkh","zz6ey01e0p17w","ku17j91e2gfov","17719ob1dzd56v","1xr4agd1dz5j7l","1q50vvs1e6quxa","1vpm4a91e15e2t","cartps1e3etai","1eh2hss1e3deqw","9bumzk1e0qe4u","13ixn7s1e0mq6i","17ya8r1e3zr1h","1scqo3c1e20tbc","dpeuob1e22ytr","12zonb01dz3y3k","16ai4ly1e134wy","17mqlzx1e3fngt","1o7dab41e0f2q2","1ufm1sr1e2ny33","1u1c5211e1zdbj","13s2jc01e2gbjg","72ctdk1e15wz0","dj4d61e6shri","a8wtjg1e21l44","w1biv01e3fhs6","1o2dqil1e1zeub","1871yew1e23w02","1jcu8tp1e43943","1azunb91e22yrt","10zzcvx1e160w9","v2eqgs1e3v9je","nov0hw1e2t2rq","1phh3i01dzcj70","1luaqkd1e3ztbb","1gd9ldq1e6vm10","1v7agbv1e5elt5","kke7dw1e38nmw","ekhjff1e6oojn","18v9wo11dz1xhh","9orlkl1e0f7kd","11oefph1e2pj2h","9z72pd1e2onut","1f1k0ht1e3d5k3","1bl2x5r1e2t3s5","1h8kp0t1e3e4pv","1el7u9o1e46ds6","1yj2epi1e2o0h6","8zecd51e1fxal","9tf6lm1e23w5k","eecf681e23ujs","txpyi1e3v9ri","mwvmej1e5joh9","1r1ps9s1e5g4ks","usl15h1e0qh9f","likdc81e22bvs","1izutjj1e0mua7","1hbdbo01e6x2co","1b5wbe21e3xasm","ningv81dz468a","1qg5y3l1e3h3lb","2swtu41e421ca","irywg71e41zot","bfkl2o1e23pc6","glt2d91e6ruqv","bhabp91e2ip67","14uyszo1e44bms","a631j11e2o18h","g4gt9s1dz41eo","1uvlh2d1e2qxmx","y5bijh1e6uw5p","1wyxnq51e0psv7","p0cje71e3v31h","1pz8tv31e1uqud","1pov0t71e0fu91","17vafcr1e0pn2f","yj3g361e39jce","1l93ja31e42tqn","92jp901e0mqsk","1wvwcla1e5elxk","vcx37l1e6q33b","14kkg1e5c6f6","1lgg9421e3h3gs","1i4gi8z1e17jol","3hqgxe1e22x0u","cjszvl1e419l5","1v1ftsb1e3fow3","1a4s3jt1e17i27","1egq8de1e1ttds","m8h2pj1e420it","1qmrp811e15zil","1brx2rt1e2m7ut","x83buk1dzceyy","16rp43p1e20ozp","13brcxw1dz758m","1tb25zs1e5c83q","aw3tbc1dz42x2","vig5l51e43lkb","1858jrh1e3dd1p","6qcxeq1dz42zq","1f4oxyh1e2038r","13qruwv1e3bvdx","1i07h021e5g2tk","ssplyk1e0lq12","65slf61dz431e","1c94zgd1e3esff","r4dy1m1e0oyps","1d7buhn1e21lxj","1susciw1e2mhyg","1grofma1e6qwp8","1lf4rjr1e3eupz","za4rn81e16xus","zlm9l71e5i9pd","16te9k61e59yy6","1cc8d991e419m7","1yr89su1e6olii","143w9om1e158h2","zsxlho1e41s1y","5ancxo1e0pn46","idggig1e2rmzs","18n49101e3dcay","cpo2e11e6vm8d","aa6df01dzcbnm","yzjtt21e6r0lc","5j19kw1e1fsdo","1u0cghc1e0ov9i","1py8jf21dz5pvw","15cjxcq1e3cdz4","u6kop91e1djk5","5nuebb1e1dkmh","1dhp1v61e450qo","6uaz91e5f8qx","m9h0151e5csi5","1qkb1ss1e0p3pm","19kyn441e39hlw","1ps5wvb1e59vfl","sl58ul1e2t7vv","jtgp151e5c2fh","1e89h7b1dzcbmp","9qhvkz1e19y95","1rnh4m61e2ik2q","fb2q3f1e3gboh","5k58nw1e19rey","aiumrw1e6skzy","1mi0b5y1e46bz6","3yn4xm1e19mh0","1x4fdca1e59w3k","1s8v37r1e15ckl","wwc9rt1e6u1xh","1wj5rk21e15a7i","1fl4jb61e2t1a8","jmpvnn1dz468x","1ccvrkq1e5cd58","15jzpi41e0n9ls","1ccu6sj1e3et7l","1rfrbsn1e19o81","14ypc811e23raj","1ix5le91e3dert","1xoi15q1e2opuy","5mpui71e1fzmt","1ekq9221e3ckao","1c3189w1e2pygy","1ne3oy51e19qun","cnsxzd1e2getp","4v4fl71e158fd","21z40i1e1upf2","q8wi181e6vgau","10pr3771e0ftgh","6fb09w1e2qu5g","x6qbea1e3bthg","1s4aruw1e14o7i","tylx6f1e20t3b","hjwh171e2rmw9","v8bi401e6u220","1pis8wb1dz3d7t","1qe7osx1dzcdcd","rfbefm1e6twti","1xervyh1e39ob1","oz69q11e5gjrh","ia1rsg1e16unc","bz3qr71dz5nad","1h1atkr1e5jqtr","1eglc6b1e22zkf","17u7e1a1e0o2si","qf881q1e0qequ","1pg9dos1e1879q","wlsezd1e0g05h","4m2b0z1e44vvt","3xlonf1e133tx","v4rr4r1e1tvvx","1j2tvh21e6rn9g","1kkt6fo1e2mgbs","152hrer1e2meg9","8v3lld1e44413","q8a3c61e5fyqy","1tcyywc1e0qcdo","wjp6v1dz2lhj","flhrz81e23pes","15w7cvy1e0o772","bk7f3i1dzd57u","1vezz0q1e5icdq","gnpt6k1e0mthi","1rt08z31e15ea3","23ejsu1e19ts4","g611ij1e3v16r","1cj5u5r1e6t5wh","1s0rb501e1tv1c","1tccuzz1e42poj","1eyvoa41e17isg","4s5wto1e1fzsc","u6f0aj1e6or1d","1wb5dvm1e14hhc","9m80ah1e3fgqp","uw4hnb1e6qakr","h2r5au1e0oai6","152n8rk1e0fy86","1j6ayve1e2oqhy","1aqbmal1e2ioqp","fqxr7p1e15xtt","1n5nys41e2ij5y","1mc4ylj1e12yyr","g11pyd1e5carx","18a3zil1dz6b3f","ohl70d1e3duvh","1vyfdgr1dz3znr","qyns231dz4rgn","11jp25b1e0p225","s0mrsa1e5hhe0","1c4nt7y1e5fwas","14bey801e6qy12","8aubs1e42q9y","1fvmk291e5ecn5","1jba5821e5ek8a","10j8unh1e4118t","j6ylxb1e1tuct","1tgs8d71e20te3","yhu6q81e6tbre","1pk693x1e1uls9","1io4s171e6rvl1","1xuv5l81e0f51e","160ui731e3bw27","1dc406t1e1892n","83vc2m1e2oezq","b2kc0j1e6t613","1fcfz101e446g8","6kxa4s1e1dlgo","xbvmxh1e3xcap","762yay1e6x6cu","19xxb221e3zrt4","uznadm1e1fwco","mjgm721e3xe22","atfswf1e3zsln","1n7tum81dz1v2e","835el61e1z942","co1l701e6qyz2","1ew4mug1e3x88y","1c96hoz1e2t5hr","1taobf51e3eow9","1xcew1q1e184sg","1kfa3ms1e0oxz6","9zgzti1e3zslo","gy41951e41b61","1t74dka1e3fk20","pyqp131e6rwf5","e3y16z1e6sksj","1p0e6cn1dz6d9d","deo05n1e1urtb","8zn3kt1e0pnt1","dtzv2n1e5gubn","1uk0tqm1e6twuc","1mp1qs91e5el67","1oh35mf1e0lwv9","eg342g1e3bwx4","1j9lggh1e14f29","5n8di41e2rkau","1q761wj1e2g8tl","1nbnwhx1e15zb5","7wrd7g1e0o7pi","d83sf31e6ru4v","1951f9l1e2osyr","1ap1j5m1e23w2u","1jhte481e17jjc","7jb08z1e1zu13","ie5nh61e5g1zc","1xsuqvq1dz1r2k","1vz2bt1e2pj5b","1wiki6e1e0ptsc","4by6sl1dz1xql","bo3xmr1e3bwub","1wa17iw1e19p0g","asu8gv1e6skzz","x4hwud1e20qtl","mzh3ml1e5jvpl","vj1ns31e189nl","t327qm1e5facq","2k2syn1e3bvc9","2anucw1e5jsge","14pkw931e5f8nf","18xcgkv1e16omd","1bkpcqp1e19sgd","1j3lq4g1e14n9m","i9nqx41e0qles","29z1a71e21k97","1qj81911e1uquf","193yf071e15x29","1nhcpxk1e3dfoo","wo7fhp1dz6zcx","1mdj0f51e5gmar","pscdxy1e15ebs","1txq4ah1e38qpt","1yhc35j1e1zd9l","xno8sg1e4174a","p3icm61e1zetk","y2l88p1e3e29t","f08oec1e2q3j8","4biz0d1e22wyr","12ysukv1e3zqxt","1r5wauy1e43fqi","17tf00k1dz1rsy","wj515y1dz2lim","48x16n1e39lsf","9gz4fq1e43bic","68kl0n1e1up7p","11tergj1dzd7bf","y2hipu1e5czwo","17b6s271e12xgl","1g7cob81e59tt0","1vff1ul1e1603t","zk748y1e15azq","daz2zl1dz5fz7","1nk1y2u1e0mokq","1jv5it81e42tqa","1n115851e3bs4v","1rd53x71dzce09","1gpng341dz2irm","17mdrc21e1fzty","1d14vz1e39gqr","zl4i6e1e6u6y2","flesv61e14f44","1bc8e4a1e3e7bc","1d722o51dz4ptt","1txmv6e1e16sq2","1kws9n21e41bam","d9md4p1e2oqln","1sa1hvb1e0momh","a8v5zo1e1uucs","16afk21e232rw","196u3671e16on7","bp8lo31e6oo15","1et3e6v1e43bk7","115dmtq1e228lk","16cyw1x1e233or","fweol31e0l99p","1911col1e3ckdj","13i1jae1e1yjvy","1u883jp1e6x0rz","n3h371e17fkf","1qkzbzu1e5el1g","uubqv1e1zczr","1cwj46g1e5g22u","1fsz4f1e1yj0j","1le6ggd1dzdawf","1kjrdvw1e166x6","fzrbt01e2geow","1vkjl8f1e39jjh","h09kz41e43ico","xtf9151e5hiy3","bk2alp1e59sxt","1edtpsr1e46l49","ln8mpk1dzd8g6","13qxp1d1dz39nn","14g155v1e5gotp","1axewnc1e1zu74","yfoh4z1e16q9v","yerxf51e5gq85","lsgt4i1e20slo","1cmoisk1e17i1s","18cian31e5g17t","1iomehp1e16pev","1pgpuob1dz4275","mcopgw1dz42ao","1qjrzc61e0obze","16ygt031e46g3n","1msjc3m1e3e40c","1n5qair1dz4rd3","1fuxlnv1e42sx9","q4bl2g1e0ps22","16pgl8o1dz1rt2","1y9bgri1e3dao8","itl6lk1e22zjc","woji8z1e5czwv","16krfy21e3erou","1i3441w1e2t160","1irslq51e156w3","xn7kuf1e5g4ej","1dwqi8z1e5gugz","1us264x1e2p9yb","lo5ibu1e6qwhw","18togmm1e6tchw","48m7t1e0mq5r","1wuapgw1e39obs","z0uq5a1e2miqy","xs3ds41e6wzpq","1fihloq1e0f6io","16xc77v1e6ur9n","1a9ygqu1e2imlq","nb1b0f1e3e3tt","1neo87f1e0ps85","1mhnetd1e5jvm5","pulb6p1e44z0h","m0rafn1e2rskp","1xxvpp71e6vlgp","tn9jn31e0lq6f","1o7eokr1e3fk4h","uh4ah81e6tb2i","nmba4v1e1yh5t","igb5jg1e46eng","1m2b3jb1e43i4r","i1pbrj1e2qv9j","1mpz2q61dz5l1k","1372hp01e6u6tm","1c01s1k1e1599c","pwlyfh1e0fua5","1p8ao3p1dz3cuh","1vo5zib1e3fmjx","1ggs2mh1e5hemh","10g2h4y1e0l7c2","1aptazi1e2iksk","g4mycs1e5hepy","quhhum1e0oysq","1odz19m1e5i5v2","1494ufk1e12xes","eft0xl1e44sh3","1x8b31k1e6u1vu","19s2d0p1dz6bs3","814sig1e44410","dhtnbl1dz4unb","8rsa3n1e0qe5l","1ym8nlc1e22x7s","13y3nhw1e200wa","19ukdm31dz42xx","1jxnujb1e42o5n","1snm8mp1dz5ls9","gh2xa11e6sls5","bfryi41e2m7ya","1ji2y8l1e19qp3","1nrmr081dz1v7y","1j97w8r1e0f0zn","17zpile1e2q5mo","1ikjx5j1e1tz1l","1quez0m1e6owy0","1f21gy01e2pfwm","3fxn0p1e1z37l","f6zrdh1e5casv","jmtwq91e21h0v","vxg3yn1e2nqlp","1f3sb3h1e2m7ux","1g8rs4m1e0oy26","15bnemt1e6vjrh","ds66c11e21dhh","f3gqv21e3x89u","uh4sg81dz2n46","l9m8u61e3v21u","155lw6j1e223if","1des6yx1e3bww1","kblkhg1e6qer0","wytrb1dz50jz","l7woln1e5c2e9","1qe2wwi1e1zcgc","1whaodq1dz2n3i","18lojcx1e6snhn","eu9zku1dz73b4","1idl28y1dz2iro","10n8h3c1e5hjmo","1c8t8z11e21l2n","1v9jn121e6q3z6","1ca7pir1e5fc0f","cg4pni1e1z0py","1f5e7gm1e0f8km","1r2m41d1e1uqsr","16tb4271e59yvf","5ygmaj1e0f5sb","7ei58m1e5hlc8","muw7ez1e2t2rn","1nflu481e44z4a","14j0f6c1e2gadi","doxfue1e6slre","1g6rdem1e3bwz2","qiiqvh1dz42b3","747h001dzd55w","3wt77c1e6wxhq","1ipxja71dz1udj","41ibtt1e5g06j","gko3cu1e451fw","1gi63uh1e6qeod","icgsbj1dz41dz","1vli6o81e3foyo","s0d4821e6rxf2","vv4rlh1e18h7z","6hqget1e3bw7d","1wm99qs1e5g4dc","b63f0b1dz42x3","1fulzli1e0fwyy","zgyjpi1e0pmiw","974j411e5f9hp","u9qqis1e2rl9k","hgjw9c1dz70vc","kn6ju21dz6ckm","11xbr1k1e2mduw","8gy0gf1e21drd","npzxya1e1877k","1cnjnda1e5cd9m","43w0w61e5goxa","18cwfyr1e17haj","1kvz3ni1e186h0","k1k6yb1e3xe1t","1sg97oo1e1554y","1or5v741e5i34a","xl8wyj1e1fu33","7kofho1e419es","h5wfri1dz2hye","wxvdv91e3e22t","1pbotsx1e4497z","198iiry1e3gxkw","15hqs2v1e3x9z7","1bbtktt1e42s0z","1ts5is41e6u156","ae3v4i1e5f6sm","7odpze1e6om5e","1po97011e3xe5f","18apzon1e1umr1","1qciput1e5ctc5","11tblyk1dzd7n0","15qeawq1e2q562","aux4wl1e43bi9","1sxb02w1e20t5s","53xw561e1up38","rk7urw1e0mjeu","1a8f64r1dzcgo9","149w35i1e3dd7q","srfsbt1e16sqp","u7l6st1e2phfx","92b8nj1e2t4p7","vqncp81e0fzuq","1edgdm01e5f71o","1rvqg5t1e17kdf","1mofy4e1e5fcjo","l66bm01e0njgi","1tgeaw11e0f2ip","28sfjj1e6wxil","dwekl21dzd5ya","1dnysct1dz5fup","18th7vr1e20wln","1v3v1lq1dz6zhm","6qzrfc1e39lu2","exylpe1e6ruq4","1jif06s1e38nhg","zq6thp1e0m2i7","wj27wm1e131fo","qvenp21e130p0","b3hy9c1e5d2as","1xxwi931e2opt9","p8d6k01e15ebu","1cj31n01e5ecx8","e3hx5a1e6u58o","1218iul1e1ft0n","1xcnwwc1e2qtcw","16paa8q1dz1ry8","167fqpr1dz72jp","1t5p4sh1e23sn5","rplr2o1e5gqi4","1qpink31e1604l","1sn20od1e3fk6n","1rwh571e2mjmt","14lejwz1e6qy13","2k0dca1e6tuci","1l0i3vw1e1zeug","rkpdo11dz71mt","17cth5z1e2of35","1hktmgk1e20v1g","1jbmfw41e6slv0","1c18k5n1dz1spx","wx6ruj1e38qsl","1pmfkm91e1domn","15ig40e1e6omau","btzhzb1e21dgp","iqocvg1e0pq9y","1r9ddx21e20t62","ib75qc1e5ecle","vcm85x1e0mpcd","kybphf1e5hfgr","1pdffbq1e1zz4c","1arwef21dzcgp8","1ozm1731e1djl1","p4pjkk1e0f1u6","tfn3j01e6vlca","1g5b37l1dz43vn","1voalma1e3v5ba","1m5yb8z1e4484h","17o6k8m1e444te","1kwgm291e1tu7f","19k201r1dz2jib","14espsa1e3dbf0","1ssfh011e15cvf","cy12961e21dfs","17axilx1e6omyt","4u7sk41e3h0fc","1cltxp11e17i6d","kcshkc1e5gs3y","1lze6jw1e2nxbg","gjexdt1e1zutd","yi1vh11e4170t","g43zyh1e6qwh3","exbwbx1e2rhu5","ipra1v1e3ziqp","1aqt4sk1e445lw","t0o21c1e38qyy"];const S=new Set(K);
+const key=c=>{let a=2166136261,b=5381;const s=SALT+c;for(let i=0;i<s.length;i++){const x=s.charCodeAt(i);a^=x;a=Math.imul(a,16777619)>>>0;b=(Math.imul(b,33)^x)>>>0}return a.toString(36)+b.toString(36)};
+const gt=k=>{try{return localStorage.getItem(k)}catch(e){return null}},st=(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}};
+const open=()=>document.body.classList.remove('lock');
+if(gt('gf:ok')==='1')open();
+let pc='';
+$('#gk0').addEventListener('click',()=>{const v=$('#gk').value.trim();if(!/^\d{5}$/.test(v)||!S.has(key(v))){$('#e0').textContent='This code is not valid. Check it and try again.';return}pc=v;$('#e0').textContent='';$('#g0').hidden=true;$('#g1').hidden=false});
+$('#gc').addEventListener('click',()=>{const n=$('#gn').value.trim(),y=+$('#gb').value,Y=new Date().getFullYear(),h=+$('#gh').value,w=+$('#gw').value;if(!n||!(y>=Y-100&&y<=Y-10)||!(h>=100&&h<=250)||!(w>=30&&w<=300)){$('#e1').textContent='Fill in your name, birth year, height (100-250 cm) and weight (30-300 kg).';return}const d=new Date(),ds=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');PL=[{id:'p1',name:n.slice(0,20)}];AID='p1';sv('diet:profiles',PL);sv('diet:active','p1');sv('diet:profile',{sex:$('#gs').value,by:$('#gb').value,ht:$('#gh').value,wt:$('#gw').value,act:'0'});sv('diet:weights',[{d:ds,w:w}]);st('gf:ok','1');st('gf:code',key(pc));prender();loadProfile();open()});
+})();
+</script>
+<script>
+/*DATA*/
+const FOODS={
+egg:{n:'Eggs',k:72,p:6.3,c:.4,f:4.8},banana:{n:'Banana',k:105,p:1.3,c:27,f:.4},apple:{n:'Apple',k:95,p:.5,c:25,f:.3},orange:{n:'Orange',k:62,p:1.2,c:15,f:.2},
+cottage:{n:'Cottage cheese',g:1,k:.85,p:.11,c:.034,f:.025},chicken:{n:'Grilled chicken',g:1,k:1.65,p:.31,c:0,f:.036},rice:{n:'Cooked rice',g:1,k:1.3,p:.027,c:.28,f:.003},
+beef:{n:'Lean beef',g:1,k:1.75,p:.28,c:0,f:.07},tuna:{n:'Tuna (drained)',g:1,k:1.1,p:.25,c:0,f:.01},oil:{n:'Olive oil',g:1,k:8.8,p:0,c:0,f:1},
+salad:{n:'Salad',g:1,k:.2,p:.01,c:.04,f:.002},veg:{n:'Vegetables',g:1,k:.35,p:.02,c:.07,f:.003},potato:{n:'Boiled potato',g:1,k:.87,p:.019,c:.2,f:.001},turkey:{n:'Turkey breast',g:1,k:1.5,p:.3,c:0,f:.03},fish:{n:'White fish (grilled)',g:1,k:1.28,p:.26,c:0,f:.027},shrimp:{n:'Shrimp (cooked)',g:1,k:.99,p:.24,c:.002,f:.003},yogurt:{n:'Greek yogurt (plain)',g:1,k:.6,p:.1,c:.036,f:.004},whites:{n:'Egg whites',g:1,k:.52,p:.11,c:.007,f:.002}};
+const MEALS=['Breakfast','Snack','Lunch','Snack','Dinner'];
+const L1=[['chicken',200],['rice',250],['salad',200],['oil',5]],L2=[['beef',200],['rice',200],['salad',200]];
+const DAYS=[
+[[['egg',3],['cottage',100],['banana',1]],[['apple',1]],L1,[['cottage',150],['orange',1]],[['beef',100],['tuna',100],['rice',200],['veg',150],['oil',5]]],
+[[['egg',3],['cottage',150],['apple',1]],[['banana',1]],L1,[['cottage',200],['orange',1]],[['beef',150],['potato',150],['rice',100],['veg',100]]],
+[[['egg',3],['cottage',150],['banana',1]],[['apple',1],['orange',1]],L1,[['cottage',150]],[['tuna',150],['rice',230],['salad',200],['oil',10]]],
+[[['egg',3],['cottage',100],['apple',1]],[['banana',1],['orange',1]],L2,[['cottage',200]],[['chicken',200],['rice',200],['veg',150],['oil',5]]],
+[[['egg',3],['cottage',150],['banana',1]],[['apple',1]],L1,[['cottage',150],['orange',1]],[['beef',150],['rice',150],['veg',150],['oil',10]]],
+[[['egg',3],['cottage',100],['banana',1]],[['apple',1],['orange',1]],L1,[['cottage',200]],[['tuna',150],['rice',230],['salad',200],['oil',10]]],
+[[['egg',3],['cottage',150],['apple',1]],[['banana',1],['orange',1]],L2,[['cottage',150]],[['chicken',200],['rice',200],['veg',150],['oil',5]]]];
+const BASE=2070;let T=BASE;const DN=['Sat','Sun','Mon','Tue','Wed','Thu','Fri'];
+/*END*/
+const $=s=>document.querySelector(s),now=new Date(),ti=0,wd=(now.getDay()+1)%7,mem={};let cur=ti;
+const dt=i=>new Date(now.getFullYear(),now.getMonth(),now.getDate()+i-ti),pi=i=>(wd+i)%7;
+let AID='p1';const PF=()=>AID==='p1'?'diet:':'diet:'+AID+':';
+const key=i=>{const d=dt(i);return PF()+d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate()};
+function get(i){if(!mem[i]){let v=null;try{v=JSON.parse(localStorage.getItem(key(i)))}catch(e){}mem[i]=v&&v.d?v:{d:[],x:[]};mem[i].dr=mem[i].dr||{}}return mem[i]}
+function save(i){try{localStorage.setItem(key(i),JSON.stringify(mem[i]))}catch(e){}}
+const esc=t=>String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const DR=[['nes','Nescafé with milk',70],['cof','Coffee',3],['blk','Black tea',2],['grn','Green tea with mint',2]];
+let ho=-1;
+const IC='<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 21V5"/></svg>';
+const IW='https://www.islamweb.net/ar/';
+const H=[
+{q:'من تصبح في سبع تمرات عجوة لم يضره ذلك اليوم سم ولا سحر',t:'في شرح هذا الحديث على إسلام ويب ذكر الشارح اختلاف العلماء في معناه، وأن الأولى عنده أن الفضل خاص بعجوة المدينة كما أخبر النبي ﷺ.',s:[['إسلام ويب: باب بركة عجوة المدينة وأنها دواء','https://islamweb.net/ar/library/content/317/3398/باب-بركة-عجوة-المدينة-وأنها-دواء']]},
+{q:'المؤمن القوي خير وأحب إلى الله من المؤمن الضعيف',t:'رواه مسلم. أول معاني القوة هنا قوة الإيمان، وقال بعض العلماء إنها تشمل القوة في البدن والعمل أيضًا لأن صاحبها ينفع نفسه وأهله وأمته أكثر، وفي كل من القوي والضعيف خير.',s:[['إسلام ويب: شرح حديث المؤمن القوي',IW+'fatwa/160083/']]},
+{q:'سم الله، وكل بيمينك، وكل مما يليك',t:'رواه البخاري. اشتمل الحديث على ثلاثة آداب للأكل: التسمية بقول «بسم الله» عند بدء الأكل، والأكل باليمين، والأكل مما يليك.',s:[['إسلام ويب: شرح حديث يا غلام سم الله',IW+'fatwa/42766/']]},
+{q:'طعام الواحد يكفي الاثنين',t:'ورد في مقال «فضول الطعام» على إسلام ويب أن النبي ﷺ حثّ على التقلل من الأكل وعلى إيثار الآخرين بالباقي، وأن أحسن ما يأكله المؤمن أن يكون في ثلث بطنه.',s:[['إسلام ويب: فضول الطعام',IW+'article/10202/']]},
+{q:'فثلث لطعامه وثلث لشرابه وثلث لنفسه',t:'رواه الترمذي وصححه الألباني. معناه التحذير من الإفراط في الأكل والشرب، والسنة أن يأكل المسلم ويشرب من غير إسراف ولا تقتير. وذكر المباركفوري أن المراد ترك قدر الثلث فارغًا ليتمكن من التنفس.',s:[['إسلام ويب: ذم الإفراط في تناول الطعام والشراب',IW+'fatwa/134783/'],['إسلام ويب: شرح حديث ما ملأ آدمي وعاء شرا من بطن',IW+'fatwa/48493/']]}];
+const hp=j=>{const h=H[j];return `<div class="hp" dir="rtl" lang="ar"><p class="hq">«${h.q}»</p><p>${h.t}</p><p class="hs">${h.s.map(x=>`<a href="${x[1]}" target="_blank" rel="noopener noreferrer">${x[0]}</a>`).join(' | ')}</p></div>`};
+const TD=['08:00','11:00','14:00','17:00','20:00'],CL=['Breakfast','Snack 1','Lunch','Snack 2','Dinner'];
+function ctr(){const t=ld(PF()+'times',TD);$('#ct').innerHTML=CL.map((n,j)=>`<label>${n}<input type="time" id="ct${j}" value="${t[j]||TD[j]}"></label>`).join('')}
+$('#ct').addEventListener('change',()=>{sv(PF()+'times',CL.map((n,j)=>$('#ct'+j).value||TD[j]))});
+const p2=n=>String(n).padStart(2,'0'),ie=t=>t.replace(/\\/g,'\\\\').replace(/[;,]/g,m=>'\\'+m).replace(/\n/g,'\\n'),fold=l=>l.replace(/(.{74})(?=.)/g,'$1\r\n ');
+const stp=d=>d.getFullYear()+p2(d.getMonth()+1)+p2(d.getDate())+'T'+p2(d.getHours())+p2(d.getMinutes())+'00';
+function icsText(){const t=ld(PF()+'times',TD),L=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Get Fit//Meals//EN','CALSCALE:GREGORIAN'],ds=new Date().toISOString().replace(/[-:]/g,'').slice(0,15)+'Z';
+for(let i=0;i<7;i++){const z=scale(i),day=dt(i);DAYS[pi(i)].forEach((m,j)=>{const tm=(t[j]||TD[j]).split(':'),st=new Date(day.getFullYear(),day.getMonth(),day.getDate(),+tm[0],+tm[1]),en=new Date(st.getTime()+18e5),k=Math.round(tot(m,z).k),it=m.map(a=>{const x=FOODS[a[0]];return x.n+' '+(x.g?qty(a,z)+' g':'x '+a[1])}).join('\n');
+L.push('BEGIN:VEVENT','UID:gf-'+AID+'-'+stp(day).slice(0,8)+'-'+j+'@getfit','DTSTAMP:'+ds,'DTSTART:'+stp(st),'DTEND:'+stp(en),'SUMMARY:'+ie(CL[j]+' - '+k+' kcal'),'DESCRIPTION:'+ie(it),'BEGIN:VALARM','ACTION:DISPLAY','DESCRIPTION:'+ie(CL[j]),'TRIGGER:-PT10M','END:VALARM','END:VEVENT')})}
+L.push('END:VCALENDAR');return L.map(fold).join('\r\n')+'\r\n'}
+async function addCal(){const f=new File([icsText()],'get-fit-meals.ics',{type:'text/calendar'}),m=$('#cm');
+try{if(navigator.canShare&&navigator.canShare({files:[f]})){await navigator.share({files:[f],title:'Get Fit meals'});m.textContent='Choose Calendar and add all events.';return}}catch(e){if(e&&e.name==='AbortError')return}
+const u=URL.createObjectURL(f),a=document.createElement('a');a.href=u;a.download='get-fit-meals.ics';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),4000);m.textContent='Open the downloaded file and add it to your calendar.'}
+$('#cb').addEventListener('click',addCal);
+const ALT={egg:['tuna','yogurt','cottage','chicken'],cottage:['yogurt','whites','tuna'],chicken:['turkey','fish','beef','shrimp'],beef:['chicken','turkey','fish','shrimp'],tuna:['fish','shrimp','chicken','turkey']};
+function swaps(a,z){const al=ALT[a[0]];if(!al)return '';const K=FOODS[a[0]].k*qty(a,z);
+return `<details class="alt"><summary>Swap</summary>${al.map(n=>{const x=FOODS[n],g=Math.max(5,Math.round(K/x.k/5)*5);return `<div>${x.n}<span>${g} g · ${Math.round(x.p*g)} g protein</span></div>`}).join('')}</details>`}
+function scale(i){let F=0,G=0;DAYS[pi(i)].flat().forEach(a=>{const f=FOODS[a[0]];f.g?G+=f.k*a[1]:F+=f.k*a[1]});return Math.max(.3,(T-F)/G)}
+function qty(a,z){const f=FOODS[a[0]];if(!f.g)return a[1];const st=a[0]=='oil'?1:5;return Math.max(st,Math.round(a[1]*z/st)*st)}
+function tot(m,z){return m.reduce((s,a)=>{const f=FOODS[a[0]],q=qty(a,z);s.k+=f.k*q;s.p+=f.p*q;s.c+=f.c*q;s.f+=f.f*q;return s},{k:0,p:0,c:0,f:0})}
+function render(){
+const s=get(cur),z=scale(cur);let k=0,p=0,c=0,f=0,plan=0;
+$('#tabs').innerHTML=DN.map((n0,i)=>{const n=DN[pi(i)],d=dt(i);return `<button class="tab${i==cur?' on':''}${i==ti?' td':''}" data-i="${i}">${n}<small>${d.getDate()}/${d.getMonth()+1}</small></button>`}).join('');
+$('#meals').innerHTML=DAYS[pi(cur)].map((m,j)=>{const t=tot(m,z),on=s.d.includes(j);plan+=t.k;if(on){k+=t.k;p+=t.p;c+=t.c;f+=t.f}
+return `<section class="card meal${on?' done':''}"><div class="mh"><b>${MEALS[j]}</b><span>${Math.round(t.k)} kcal</span><button class="hd" data-h="${j}" aria-expanded="${ho===j}" aria-label="Hadith or Islamic note about food and health">${IC}</button><button class="chk" data-j="${j}" aria-label="Mark ${MEALS[j]} as eaten">${on?'✓':''}</button></div><ul>${m.map(a=>{const x=FOODS[a[0]];return `<li>${x.n}<span>${x.g?qty(a,z)+' g':'× '+a[1]}</span>${swaps(a,z)}</li>`}).join('')}</ul>${ho===j?hp(j):''}</section>`}).join('');
+k+=s.x.reduce((a,e)=>a+e.k,0)+DR.reduce((a,d)=>a+(s.dr[d[0]]||0)*d[2],0);
+$('#dl').innerHTML=DR.map(d=>`<li>${d[1]}<span>${d[2]} kcal/cup <button class="st" data-m="${d[0]}" aria-label="Remove one ${d[1]}">−</button><b>${s.dr[d[0]]||0}</b><button class="st" data-p="${d[0]}" aria-label="Add one ${d[1]}">+</button></span></li>`).join('');
+const left=T-Math.round(k),over=left<0;
+$('#sum').innerHTML=`<div class="top"><div class="ring" style="--p:${Math.min(100,k/T*100)};--c:${over?'var(--wn)':'var(--ac)'}"><div><span><b>${Math.round(k)}</b><br><small>of ${T}</small></span></div></div><div class="stats"><div><b>${Math.round(p)}</b><span>Protein g</span></div><div><b>${Math.round(c)}</b><span>Carbs g</span></div><div><b>${Math.round(f)}</b><span>Fat g</span></div></div></div><div class="rem">${over?'Over target by <b>'+(-left)+'</b> kcal':'Remaining: <b>'+left+'</b> kcal'} · Today's plan <b>${Math.round(plan)}</b></div>`;
+$('#xl').innerHTML=s.x.map((e,i)=>`<li>${esc(e.n)}<span>${e.k} kcal <button class="del" data-x="${i}" aria-label="Delete">×</button></span></li>`).join('');
+}
+document.addEventListener('click',e=>{
+const t=e.target.closest('button');if(!t)return;
+if(t.dataset.i!==undefined){cur=+t.dataset.i}
+else if(t.dataset.j!==undefined){const s=get(cur),j=+t.dataset.j,x=s.d.indexOf(j);x<0?s.d.push(j):s.d.splice(x,1);save(cur)}
+else if(t.dataset.x!==undefined){get(cur).x.splice(+t.dataset.x,1);save(cur)}
+else if(t.dataset.p!==undefined){const d=get(cur).dr,n=t.dataset.p;d[n]=(d[n]||0)+1;save(cur)}
+else if(t.dataset.m!==undefined){const d=get(cur).dr,n=t.dataset.m;d[n]=Math.max(0,(d[n]||0)-1);save(cur)}
+else if(t.dataset.h!==undefined){const n=+t.dataset.h;ho=ho===n?-1:n}
+else if(t.id==='xa'){const k=Math.round(+$('#xk').value);if(!(k>0))return;get(cur).x.push({n:$('#xn').value.trim()||'Extra',k});save(cur);$('#xn').value='';$('#xk').value=''}
+else return;
+render()});
+const ACT=[['Sedentary (little exercise)',1.2],['Light (1-3 workouts/week)',1.375],['Moderate (3-5 workouts/week)',1.55],['Very active (6-7 workouts/week)',1.725]];
+function ld(k,d){try{return JSON.parse(localStorage.getItem(k))||d}catch(e){return d}}
+function sv(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+let P={},W=[];
+$('#act').innerHTML=ACT.map((a,i)=>`<option value="${i}">${a[0]}</option>`).join('');
+['sex','by','ht','wt','act'].forEach(id=>$('#'+id).addEventListener('input',calc));
+$('#wd').value=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0')+'-'+String(now.getDate()).padStart(2,'0');
+function calc(){
+P={sex:$('#sex').value,by:$('#by').value,ht:$('#ht').value,wt:$('#wt').value,act:$('#act').value};sv(PF()+'profile',P);
+const a=+P.by>0?new Date().getFullYear()-(+P.by):0,h=+P.ht,w=+P.wt,o=$('#calc');
+if(!(a>0&&h>0&&w>0)){o.innerHTML='Enter your birth year, height and weight to see your numbers.';return}
+const bmr=10*w+6.25*h-5*a+(P.sex==='m'?5:-161),tdee=bmr*ACT[+P.act][1],fl=P.sex==='m'?1500:1200;
+const lo=Math.max(fl,Math.round(tdee-1000)),hi=Math.max(fl,Math.round(tdee-500)),d=tdee-T,wk=d*7/7700;
+o.innerHTML=`<div class="kv"><span>Age</span><b>${a} years</b></div><div class="kv"><span>BMR (at rest)</span><b>${Math.round(bmr)} kcal</b></div><div class="kv"><span>Maintenance (TDEE)</span><b>${Math.round(tdee)} kcal</b></div><div class="kv"><span>Fat-loss range</span><b>${lo}–${hi} kcal</b></div><div class="kv"><span>This plan (${T} kcal)</span><b>${d>0?Math.round(d)+' below maintenance, about '+wk.toFixed(1)+' kg/week':'at or above maintenance'}</b></div>`+(d>1100?'<p class="note">This deficit is bigger than the usual guidance of about 1,000 kcal/day or less. If you feel dizzy or exhausted, eat more or see a dietitian.</p>':'');
+}
+function wrender(){
+W.sort((a,b)=>a.d<b.d?-1:1);
+$('#wl').innerHTML=W.map((e,i)=>{const pv=W[i-1],df=pv?e.w-pv.w:null;return `<li>${e.d}<span>${e.w} kg ${df===null?'':'('+(df>0?'+':'')+df.toFixed(1)+')'} <button class="del" data-w="${i}" aria-label="Delete">×</button></span></li>`}).join('');
+const s=$('#ws');
+if(W.length<2){s.textContent=W.length?'Add next week\'s weigh-in to see your progress.':'No weigh-ins yet. Weigh yourself once a week, same day and time.';$('#wc').innerHTML='';return}
+const f=W[0],l=W[W.length-1],days=(new Date(l.d)-new Date(f.d))/864e5,t=l.w-f.w;
+s.innerHTML=`Total: <b>${t>0?'+':''}${t.toFixed(1)} kg</b> since ${f.d}`+(days>=7?` · average <b>${(t/days*7).toFixed(2)} kg/week</b>`:'');
+const ws=W.map(e=>e.w),mn=Math.min(...ws),r=Math.max(...ws)-mn||1,pts=W.map((e,i)=>[8+i*(284/(W.length-1)),82-(e.w-mn)/r*74]);
+$('#wc').innerHTML=`<svg viewBox="0 0 300 90" role="img" aria-label="Weight over time"><polyline fill="none" stroke="var(--ac)" stroke-width="2.5" points="${pts.map(p=>p.join(',')).join(' ')}"/>${pts.map(p=>`<circle cx="${p[0]}" cy="${p[1]}" r="3.5" fill="var(--ac)"/>`).join('')}</svg>`;
+}
+document.addEventListener('click',e=>{const t=e.target.closest('button');if(!t)return;
+if(t.id==='wa'){const w=parseFloat($('#wv').value),d=$('#wd').value;if(!(w>0&&d))return;const x=W.findIndex(q=>q.d===d);x<0?W.push({d,w}):W[x].w=w;sv(PF()+'weights',W);$('#wv').value='';wrender()}
+else if(t.dataset.w!==undefined){W.splice(+t.dataset.w,1);sv(PF()+'weights',W);wrender()}});
+let PL=ld('diet:profiles',null),dc=0;
+if(!Array.isArray(PL)||!PL.length){PL=[{id:'p1',name:'Me'}];sv('diet:profiles',PL)}
+AID=ld('diet:active','p1');if(!PL.some(p=>p.id===AID))AID=PL[0].id;
+function prender(){const p=PL.find(q=>q.id===AID)||PL[0];$('#pnm').textContent='Name: '+p.name+' (tap to edit)'}
+function wipe(id){const re=id==='p1'?/^diet:(\d{4}-\d+-\d+|profile|weights|target)$/:new RegExp('^diet:'+id+':');try{Object.keys(localStorage).filter(k=>re.test(k)).forEach(k=>localStorage.removeItem(k))}catch(e){}}
+function loadProfile(){for(const k in mem)delete mem[k];P=ld(PF()+'profile',{});W=ld(PF()+'weights',[]);if(P.age&&!P.by){P.by=String(new Date().getFullYear()-(+P.age));delete P.age;sv(PF()+'profile',P)}const D={sex:'m',by:'',ht:'',wt:'',act:'0'};['sex','by','ht','wt','act'].forEach(id=>{$('#'+id).value=P[id]!==undefined?P[id]:D[id]});T=Math.min(4000,Math.max(1500,+ld(PF()+'target',BASE)||BASE));$('#tg').value=T;const lk=!!(P.by&&P.ht);['sex','by','ht'].forEach(id=>{$('#'+id).disabled=lk});$('#lk').hidden=!lk;cur=ti;ctr();calc();wrender();render()}
+$('#tg').addEventListener('change',()=>{T=Math.min(4000,Math.max(1500,Math.round(+$('#tg').value)||BASE));$('#tg').value=T;sv(PF()+'target',T);calc();render()});
+$('#pr').addEventListener('click',()=>{const n=$('#pn').value.trim();if(!n)return;PL.find(p=>p.id===AID).name=n.slice(0,20);sv('diet:profiles',PL);$('#pn').value='';prender()});
+prender();loadProfile();
+document.addEventListener('visibilitychange',()=>{if(!document.hidden&&new Date().toDateString()!==now.toDateString())location.reload()});
+const Q=['Show up today.','One meal at a time.','Consistency beats intensity.','Fuel the work.','Small deficits, big results.','Earn the rest day.','Finish the week strong.'];$('#mt').textContent=Q[wd];
+</script>
+<script>if('serviceWorker' in navigator){window.addEventListener('load',()=>{navigator.serviceWorker.register('sw.js').catch(()=>{})})}</script>
+</body>
+</html>
